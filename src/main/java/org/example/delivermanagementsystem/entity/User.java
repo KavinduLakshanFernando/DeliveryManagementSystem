@@ -8,6 +8,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -33,5 +34,20 @@ public class User implements Serializable {
     User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    @OneToMany(mappedBy = "user")
+    private List<Driver> driver;
+
+    public User(UUID uid, String name, String username, String nic, String phone, String email, String address, String password, String role) {
+        this.uid = uid;
+        this.name = name;
+        this.username = username;
+        this.nic = nic;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.password = password;
+        this.role = role;
     }
 }
