@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurboTrack - All Orders</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: blue !important;
+        }
+
+        .nav-link {
+            color: blue !important;
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid blue;
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+            color: blue;
+        }
+
+        .page-title {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        .table-header {
+            color: blue;
+            font-weight: 500;
+        }
+
+        .order-row {
+            background-color: #d3d3d3;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            padding: 15px;
+        }
+
+        .priority-emergency {
+            font-weight: bold;
+        }
+
+        .order-table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">TurboTrack</a>
+            <div class="ms-auto d-flex">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="nav-link notification-icon" href="#">
+                            <i class="bi bi-bell-fill">🔔</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blue separator line -->
+    <div class="border-bottom border-primary border-3"></div>
+
+    <!-- All Orders Content -->
+    <div class="container mt-3">
+        <h4 class="page-title">All Orders</h4>
+
+        <div class="order-table">
+            <!-- Table Header -->
+            <div class="row mb-3">
+                <div class="col-md-2">
+                    <span class="table-header">OrderNo</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="table-header">Operator</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="table-header">Location</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="table-header">Due Date</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="table-header">Status</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="table-header">prioritization</span>
+                </div>
+            </div>
+
+            <!-- Order Rows -->
+            <div class="row order-row align-items-center mb-3">
+                <div class="col-md-2">#3306</div>
+                <div class="col-md-2">Kavindu</div>
+                <div class="col-md-2">Kaluthara</div>
+                <div class="col-md-2">2025/04/10</div>
+                <div class="col-md-2">Completed</div>
+                <div class="col-md-2 priority-emergency">Emergency</div>
+            </div>
+
+            <div class="row order-row align-items-center mb-3">
+                <div class="col-md-2">#3307</div>
+                <div class="col-md-2">Lakshan</div>
+                <div class="col-md-2">Panadura</div>
+                <div class="col-md-2">2025/04/09</div>
+                <div class="col-md-2">Completed</div>
+                <div class="col-md-2">Normal</div>
+            </div>
+
+            <div class="row order-row align-items-center mb-3">
+                <div class="col-md-2">#3308</div>
+                <div class="col-md-2">Fernando</div>
+                <div class="col-md-2">Mathugama</div>
+                <div class="col-md-2">2025/04/08</div>
+                <div class="col-md-2">Canceled</div>
+                <div class="col-md-2">Normal</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
