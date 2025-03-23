@@ -7,6 +7,7 @@ import org.example.delivermanagementsystem.utill.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class DriverManageController {
     @Autowired
     private DriverService driverService;
     @PostMapping("/save")
+    @PreAuthorize("hasAnyAuthority('Driver')")
     public ResponseEntity<ResponseDTO> saveDriver(@RequestBody WrapperDTO wrapperDTO) {
         try {
             int res = driverService.saveDriver(wrapperDTO);
@@ -36,7 +38,6 @@ public class DriverManageController {
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
-
         }
     }
 }

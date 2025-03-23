@@ -3,167 +3,257 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TurboTrack - All Requests</title>
+  <title>TurboTrack - Request Management</title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    .navbar-brand {
-      font-size: 24px;
-      font-weight: bold;
-      color: blue !important;
+    /* Custom styles */
+    body {
+      font-family: Arial, sans-serif;
     }
-
-    .nav-link {
-      color: blue !important;
-      font-weight: 500;
-    }
-
-    .nav-link.active {
-      border-bottom: 2px solid blue;
-    }
-
-    .notification-icon {
-      font-size: 1.5rem;
-      color: blue;
-    }
-
-    .request-row {
-      background-color: #d3d3d3;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      padding: 10px 15px;
-    }
-
-    .view-btn {
+    .blue-divider {
+      height: 4px;
       background-color: blue;
-      color: white;
-      border-radius: 15px;
-      padding: 5px 20px;
-      border: none;
-    }
-
-    .request-table {
-      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     .request-header {
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .page-title {
-      font-size: 24px;
+      font-size: 22px;
       margin: 20px 0;
     }
+
+    .table-header {
+      font-weight: bold;
+    }
+
+    .request-row {
+      background-color: #e6e6e6;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      padding: 10px 0;
+    }
+
+    .btn-view {
+      background-color: blue;
+      color: white;
+      border-radius: 15px;
+      width: 80px;
+    }
+
+    .btn-deactive {
+      background-color: red;
+      color: white;
+      border-radius: 15px;
+      width: 80px;
+    }
+
+    .btn-active {
+      background-color: green;
+      color: white;
+      border-radius: 15px;
+      width: 80px;
+    }
+
+    .request-status {
+      font-weight: 500;
+    }
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #4361ee;
+      --text: #333;
+      --bg: #ffffff;
+      --accent: #3f37c9;
+    }
+
+    body {
+      background-color: #f5f5f5;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background-color: var(--bg);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-button {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-left: 1rem;
+      color: var(--text);
+    }
+
+    .dark-theme {
+      --primary: #4cc9f0;
+      --text: #f1f1f1;
+      --bg: #121212;
+      --accent: #7209b7;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--bg);
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+      }
+
+      .mobile-menu-button {
+        display: block;
+      }
+
+      .right-section {
+        display: flex;
+        align-items: center;
+      }
+    }
+
   </style>
 </head>
 <body>
-<div class="container-fluid p-0">
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">TurboTrack</a>
-      <div class="ms-auto d-flex">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Requests</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Orders</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Users</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-          <li class="nav-item ms-2">
-            <a class="nav-link notification-icon" href="#">
-              <i class="bi bi-bell-fill">🔔</i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<!-- Navigation -->
+<nav class="navbar">
+  <a href="#" class="logo">TurboTrack</a>
 
-  <!-- Blue separator line -->
-  <div class="border-bottom border-primary border-3"></div>
+  <ul class="nav-links">
+    <li><a href="AdminDashboard.html">Home</a></li>
+    <li><a href="UsersManageAdmin.html">Users</a></li>
+    <li><a href="RequestManage.html">Request</a></li>
+    <li><a href="OrdersManageAdmin.html">Orders</a></li>
+    <li><a href="#">Profile</a></li>
+  </ul>
 
-  <!-- All Requests Content -->
-  <div class="container mt-3">
-    <h4 class="page-title">All Request</h4>
-
-    <div class="request-table">
-      <!-- Table Header -->
-      <div class="row request-header">
-        <div class="col-3">
-          # Req_ID
-        </div>
-        <div class="col-6">
-          User name
-        </div>
-        <div class="col-3">
-          Action
-        </div>
-      </div>
-
-      <!-- Request Rows -->
-      <div class="row request-row align-items-center">
-        <div class="col-3">
-          #1
-        </div>
-        <div class="col-6">
-          Kavindu
-        </div>
-        <div class="col-3">
-          <button class="view-btn">View</button>
-        </div>
-      </div>
-
-      <div class="row request-row align-items-center">
-        <div class="col-3">
-          #2
-        </div>
-        <div class="col-6">
-          lakshan
-        </div>
-        <div class="col-3">
-          <button class="view-btn">View</button>
-        </div>
-      </div>
-
-      <div class="row request-row align-items-center">
-        <div class="col-3">
-          #3
-        </div>
-        <div class="col-6">
-          Fernando
-        </div>
-        <div class="col-3">
-          <button class="view-btn">View</button>
-        </div>
-      </div>
-
-      <div class="row request-row align-items-center">
-        <div class="col-3">
-          #4
-        </div>
-        <div class="col-6">
-          Ashan
-        </div>
-        <div class="col-3">
-          <button class="view-btn">View</button>
-        </div>
-      </div>
-    </div>
+  <div class="right-section">
+    <button>✉️</button>
+    <button class="mobile-menu-button">☰</button>
+    <button class="theme-toggle">🌙</button>
   </div>
+</nav>
+
+<!-- Blue divider -->
+<div class="blue-divider"></div>
+
+<!-- Main Content -->
+<div class="container">
+  <h2 class="request-header">All Request</h2>
+
+  <!-- Table Header -->
+  <div class="row table-header mb-3">
+    <div id="id" class="col-2 ps-4"># Req_ID</div>
+    <div id="name" class="col-2">User name</div>
+    <div id="status" class="col-2">Status</div>
+    <div class="col-2">View</div>
+    <div class="col-4">Action</div>
+  </div>
+
+  <!-- Container for the request rows -->
+  <div id="requestTableBody"></div>
+
 </div>
 
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS Bundle (Bootstrap + Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const navLinks = document.querySelector('.nav-links');
+
+  mobileMenuButton.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  // Theme toggle
+  const themeToggle = document.querySelector('.theme-toggle');
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    if (document.body.classList.contains('dark-theme')) {
+      themeToggle.textContent = '☀️';
+    } else {
+      themeToggle.textContent = '🌙';
+    }
+  });
+</script>
+<script src="jq/jquery-3.7.1.min.js"></script>
+<script src="js/Requestmanage.js"></script>
+
 </body>
 </html>

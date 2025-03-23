@@ -30,7 +30,6 @@ public class User implements Serializable {
     private String address;
     private String password;
     private String role;
-
     User(String email, String password) {
         this.email = email;
         this.password = password;

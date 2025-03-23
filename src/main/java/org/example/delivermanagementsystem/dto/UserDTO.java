@@ -1,5 +1,8 @@
 package org.example.delivermanagementsystem.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +17,12 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class UserDTO implements UserDetails {
+   @NotBlank(message = "sdf")
     private String name;
     private String username;
     private String nic;
     private String phone;
+    @Email
     private String email;
     private String address;
     private String password;
