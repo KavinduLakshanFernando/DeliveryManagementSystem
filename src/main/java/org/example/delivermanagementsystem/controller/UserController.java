@@ -11,10 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:63342/")
 @RestController
 @RequestMapping("api/v1/user")
-
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
@@ -24,7 +22,6 @@ public class UserController {
         this.userService = userService;
         this.jwtUtil = jwtUtil;
     }
-
     @PostMapping(value = "/register")
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody @Valid UserDTO userDTO) {
         try {
@@ -52,5 +49,5 @@ public class UserController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
-}
 
+}

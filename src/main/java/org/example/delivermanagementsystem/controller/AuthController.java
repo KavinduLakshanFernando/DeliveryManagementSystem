@@ -1,6 +1,5 @@
 package org.example.delivermanagementsystem.controller;
 
-
 import org.example.delivermanagementsystem.dto.AuthDTO;
 import org.example.delivermanagementsystem.dto.ResponseDTO;
 import org.example.delivermanagementsystem.dto.UserDTO;
@@ -9,14 +8,9 @@ import org.example.delivermanagementsystem.utill.JwtUtil;
 import org.example.delivermanagementsystem.utill.VarList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.example.delivermanagementsystem.dto.UserDTO;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/auth")
@@ -45,7 +39,7 @@ public class AuthController {
                     .body(new ResponseDTO(VarList.Unauthorized, "Invalid Credentials", e.getMessage()));
         }
 
-        UserDTO loadedUser =  userService.loadUserByUsername(userDTO.getEmail());
+        UserDTO loadedUser = userService.loadUserDetailsByUsername(userDTO.getEmail());
         if (loadedUser == null) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ResponseDTO(VarList.Conflict, "Authorization Failure! Please Try Again", null));
