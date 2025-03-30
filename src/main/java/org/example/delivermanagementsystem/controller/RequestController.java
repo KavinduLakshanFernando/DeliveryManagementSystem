@@ -4,6 +4,7 @@ import org.example.delivermanagementsystem.dto.RequestDTO;
 import org.example.delivermanagementsystem.service.RequestService;
 import org.example.delivermanagementsystem.service.impl.RequestServiceImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class RequestController {
         this.requestServices = requestServices;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("getRequest")
     public List<RequestDTO> getRequest(){
         RequestDTO requestDTO = new RequestDTO();

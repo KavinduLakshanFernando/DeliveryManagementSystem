@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/user")
+@CrossOrigin(origins = "http://localhost:63342/")
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
@@ -24,14 +25,18 @@ public class UserController {
     }
     @PostMapping(value = "/register")
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody @Valid UserDTO userDTO) {
+        System.out.println("save cont"+userDTO);
+
         try {
             int res = userService.saveUser(userDTO);
             switch (res) {
                 case VarList.Created -> {
                     String token = jwtUtil.generateToken(userDTO);
+
                     AuthDTO authDTO = new AuthDTO();
                     authDTO.setEmail(userDTO.getEmail());
                     authDTO.setToken(token);
+
                     return ResponseEntity.status(HttpStatus.CREATED)
                             .body(new ResponseDTO(VarList.Created, "Success", authDTO));
                 }

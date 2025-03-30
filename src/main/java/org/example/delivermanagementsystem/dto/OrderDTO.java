@@ -1,30 +1,32 @@
 package org.example.delivermanagementsystem.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.delivermanagementsystem.entity.User;
 
+import jakarta.validation.constraints.*;
 import java.util.Date;
-import java.util.UUID;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class OrderDTO {
-    private UUID Oid;
 
-    @NotBlank(message = "OrderType is required")
-    private String orderType;
+    @NotBlank(message = "Order ID cannot be blank")
+    private String orderId;
 
-    @NotBlank(message = "VehicleType is required")
-    private String vehicleType;
+    @NotBlank(message = "Description cannot be blank")
+    @Size(min = 5, max = 255, message = "Description must be between 5 and 255 characters")
+    private String description;
 
-    @NotBlank(message = "Location is required")
-    private String location;
+    @NotBlank(message = "Order status cannot be blank")
+    @Pattern(regexp = "PENDING|PROCESSING|COMPLETED|CANCELLED", message = "Invalid order status")
+    private String orderStatus;
 
+    @NotNull(message = "Date cannot be null")
+    @PastOrPresent(message = "Order date cannot be in the future")
     private Date date;
 
-    private User user;
+    @Positive(message = "Amount must be positive")
+    private double amount;
 }

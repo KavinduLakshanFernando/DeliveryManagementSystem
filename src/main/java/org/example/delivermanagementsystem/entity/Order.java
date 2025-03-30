@@ -1,42 +1,35 @@
 package org.example.delivermanagementsystem.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
-@Table(name = "orders")
-public class Order implements Serializable {
+public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "Oid", columnDefinition = "VARCHAR(36)", unique = true, nullable = false)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    private UUID Oid;
+    private String orderId;
 
-    @Column(nullable = false)
-    private String orderType;
+    private String description;
 
-    @Column(nullable = false)
-    private String vehicleType;
+    private String orderStatus;
 
-    @Column(nullable = false)
-    private String location;
-
-    @Column(nullable = false)
     private Date date;
+
+    private double amount;
+    @ManyToOne
+    private Destination destination;
 
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private Vehicle vehicle;
 }

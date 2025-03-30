@@ -46,11 +46,12 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/authenticate",
-                                "/api/v1/driver/save",
                                 "/api/v1/user/register",
                                 "/api/v1/auth/refreshToken",
-                                "/api/v1/request/getRequest",
+                                "",
                                 "/api/v1/order/saveOrder",
+                                "/api/v1/order/update",
+                                "/api/v1/driver/save",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",

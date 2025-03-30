@@ -18,8 +18,10 @@ public class DriverManageController {
     @Autowired
     private DriverService driverService;
     @PostMapping("/save")
-    @PreAuthorize("hasAnyAuthority('Driver')")
+//    @PreAuthorize("hasAnyAuthority('Driver')")
     public ResponseEntity<ResponseDTO> saveDriver(@RequestBody WrapperDTO wrapperDTO) {
+        System.out.println(wrapperDTO.getDriver().getDriverId());
+        System.out.println(wrapperDTO.getVehicle().getVehicleId());
         try {
             int res = driverService.saveDriver(wrapperDTO);
             switch (res) {

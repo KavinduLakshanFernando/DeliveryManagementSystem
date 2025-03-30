@@ -32,12 +32,17 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
+        System.out.println("dtl1"+user);
+        System.out.println("dtl2 email"+user.getEmail());
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
     }
 
     public UserDTO loadUserDetailsByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
+        System.out.println("dtl2"+user);
+        System.out.println("dtl22 email"+user.getEmail());
         return modelMapper.map(user,UserDTO.class);
+
     }
 
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
@@ -59,13 +64,16 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public int saveUser(UserDTO userDTO) {
         if (userRepository.existsByEmail(userDTO.getEmail())) {
+            System.out.println("save1"+userDTO);
             return VarList.Not_Acceptable;
         } else {
+            System.out.println("save2"+userDTO);
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            userDTO.setRole("USER");
+            userDTO.setRole("ADMIN");
             userRepository.save(modelMapper.map(userDTO, User.class));
             return VarList.Created;
         }
     }
+
 }

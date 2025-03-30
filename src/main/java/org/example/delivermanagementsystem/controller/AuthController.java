@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/auth")
+@CrossOrigin(origins = "http://localhost:63342/")
 public class AuthController {
 
     private final JwtUtil jwtUtil;
@@ -54,9 +55,16 @@ public class AuthController {
         AuthDTO authDTO = new AuthDTO();
         authDTO.setEmail(loadedUser.getEmail());
         authDTO.setToken(token);
+        authDTO.setRole(loadedUser.getRole());
+
+        System.out.println("login success");
+        System.out.println(authDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseDTO(VarList.Created, "Success", authDTO));
+
+
+
     }
 
 }

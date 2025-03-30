@@ -17,7 +17,7 @@ import java.util.UUID;
 @Entity
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uid", columnDefinition = "VARCHAR(36)", unique = true, nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID uid;
@@ -25,7 +25,7 @@ public class User implements Serializable {
     private String username;
     private String nic;
     private String phone;
-    @Column(unique = true)
+
     private String email;
     private String address;
     private String password;
@@ -39,7 +39,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Driver> driver;
 
-    public User(UUID uid, String name, String username, String nic, String phone, String email, String address, String password, String role) {
+   /* public User(UUID uid, String name, String username, String nic, String phone, String email, String address, String password, String role) {
         this.uid = uid;
         this.name = name;
         this.username = username;
@@ -49,7 +49,7 @@ public class User implements Serializable {
         this.address = address;
         this.password = password;
         this.role = role;
-    }
+    }*/
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
