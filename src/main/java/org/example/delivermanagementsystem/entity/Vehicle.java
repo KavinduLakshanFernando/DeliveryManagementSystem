@@ -1,6 +1,7 @@
 package org.example.delivermanagementsystem.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,7 @@ public class Vehicle {
         this.driver = driver;
     }
 
-    @OneToMany
-    private List<Order> orders;
+//    @OneToMany
+//    private List<Order> orders;
 }
+
