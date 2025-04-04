@@ -4,16 +4,21 @@ import jakarta.validation.Valid;
 import org.example.delivermanagementsystem.dto.AuthDTO;
 import org.example.delivermanagementsystem.dto.ResponseDTO;
 import org.example.delivermanagementsystem.dto.UserDTO;
+import org.example.delivermanagementsystem.entity.User;
 import org.example.delivermanagementsystem.service.UserService;
 import org.example.delivermanagementsystem.utill.JwtUtil;
 import org.example.delivermanagementsystem.utill.VarList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:63342/")
 @RestController
 @RequestMapping("api/v1/user")
-@CrossOrigin(origins = "http://localhost:63342/")
+
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
@@ -54,5 +59,37 @@ public class UserController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping(value = "/getUsers")
+    public List<UserDTO> getAllUsers() {
+        try {
+            return userService.getAllUsers();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @DeleteMapping(value = "/delete/{email}")
+    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable String email) {
+        try {
+            int res = userService.deleteUser(email);
+            switch (res) {
+                case VarList.OK -> {
+                    return ResponseEntity.status(HttpStatus.OK)
+                            .body(new ResponseDTO(VarList.OK, "Success", null));
+                }
+                default -> {
+                    return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                            .body(new ResponseDTO(VarList.Bad_Gateway, "Error", null));
+                }
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
+        }
+    }
+
 
 }

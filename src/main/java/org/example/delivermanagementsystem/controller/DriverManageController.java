@@ -1,5 +1,6 @@
 package org.example.delivermanagementsystem.controller;
 
+import jakarta.validation.Valid;
 import org.example.delivermanagementsystem.dto.ResponseDTO;
 import org.example.delivermanagementsystem.dto.WrapperDTO;
 import org.example.delivermanagementsystem.service.DriverService;
@@ -17,9 +18,10 @@ public class DriverManageController {
 
     @Autowired
     private DriverService driverService;
+
     @PostMapping("/save")
 //    @PreAuthorize("hasAnyAuthority('Driver')")
-    public ResponseEntity<ResponseDTO> saveDriver(@RequestBody WrapperDTO wrapperDTO) {
+    public ResponseEntity<ResponseDTO> saveDriver(@Valid @RequestBody WrapperDTO wrapperDTO) {
         System.out.println(wrapperDTO.getDriver().getDriverId());
         System.out.println(wrapperDTO.getVehicle().getVehicleId());
         try {

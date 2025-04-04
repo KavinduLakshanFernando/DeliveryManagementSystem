@@ -6,6 +6,7 @@ import org.example.delivermanagementsystem.repo.UserRepository;
 import org.example.delivermanagementsystem.service.UserService;
 import org.example.delivermanagementsystem.utill.VarList;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -58,6 +60,23 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             return modelMapper.map(user,UserDTO.class);
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return modelMapper.map(users, new TypeToken<List<UserDTO>>() {}.getType());
+    }
+
+
+    @Override
+    public int deleteUser(String email) {
+        if (userRepository.existsByEmail(email)) {
+            userRepository.deleteByEmail(email);
+            return VarList.OK;
+        } else {
+            return VarList.Not_Found;
         }
     }
 

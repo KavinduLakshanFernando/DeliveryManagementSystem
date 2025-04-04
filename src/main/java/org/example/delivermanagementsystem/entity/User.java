@@ -1,6 +1,7 @@
 package org.example.delivermanagementsystem.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,6 +52,6 @@ public class User implements Serializable {
         this.role = role;
     }*/
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+//    @OneToMany(mappedBy = "user")
+//    private List<Order> orders;
 }

@@ -32,7 +32,7 @@ public class UserDTO implements UserDetails {
     private String password;
     private String role;
 
-    private List<Order> orders;
+//    private List<Order> orders;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

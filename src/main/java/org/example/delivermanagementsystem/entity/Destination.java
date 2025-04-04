@@ -24,7 +24,7 @@ public class Destination {
     @Column(nullable = false)
     private Double distance;
 
-    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Order> orders;
+//    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<Order> orders;
 
 }
